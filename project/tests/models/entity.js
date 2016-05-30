@@ -10,9 +10,9 @@ describe('Entity', function () {
             expect(rows[0]).to.have.property('name');
             expect(rows[0]).to.have.property('id');
             expect(rows[0]).to.have.property('region_id');
-            console.log("id = " + rows[0].id);
-            console.log("name = " + rows[0].name);
-            console.log("region_id = " + rows[0].region_id);
+            //console.log("id = " + rows[0].id);
+            //console.log("name = " + rows[0].name);
+            //console.log("region_id = " + rows[0].region_id);
         });
     });
 

@@ -17,7 +17,8 @@ exports.connect = function (mode, done) {
         host: 'localhost',
         user: 'root',
         password: '123',
-        database: mode === exports.MODE_PRODUCTION ? PRODUCTION_DB : TEST_DB
+        database: mode === exports.MODE_PRODUCTION ? PRODUCTION_DB : TEST_DB,
+        multipleStatements: true
     });
 
     state.mode = mode;

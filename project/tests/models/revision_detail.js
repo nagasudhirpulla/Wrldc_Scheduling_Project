@@ -1,6 +1,7 @@
 var chai = require('chai');
 var expect = chai.expect; // we are using the "expect" style of Chai
 var Revision_detail = require('../../models/revision_detail');
+var db = require('../../db');
 
 describe('Revision_detail', function () {
     it('should give the maximum revision number for today', function () {
@@ -10,8 +11,16 @@ describe('Revision_detail', function () {
     });
 
     it('should create a new revision number for today', function () {
-        Revision_detail.create(new Date(), "TEST COMMENT", function (err, result) {
+        Revision_detail.create(new Date(), "STORED PROC TEST COMMENT", function (err, result) {
             expect(err).to.equal(null);
+            console.log('Revision_detail model created a new revision ' + result);
+        });
+    });
+
+    it('should create a new revision number for today as a test for concurrency', function () {
+        Revision_detail.create(new Date(), "STORED PROC TEST COMMENT CONCURRENCY", function (err, result) {
+            expect(err).to.equal(null);
+            console.log('Revision_detail model created a new revision ' + result);
         });
     });
 
@@ -21,5 +30,4 @@ describe('Revision_detail', function () {
             expect(err).to.equal(null);
         });
     });
-
 });
