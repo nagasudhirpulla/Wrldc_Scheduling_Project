@@ -20,8 +20,6 @@ exports.getMaxRevision = function (date, done) {
 
 exports.create = function (issue_time, comment, done) {
     var dateString = dateHelper.getDateString(issue_time);
-    var minTimeStamp = dateString + " 00:00:01";
-    var maxTimeStamp = dateString + " 23:59:59";
     var dateTimeStr = dateHelper.getDateTimeString(issue_time);
 
     db.get().query('CALL create_rev(?, @p1, ?, ?); SELECT @p1 AS `newrev`;', [dateString, comment, dateTimeStr], function (err, result) {
