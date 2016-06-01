@@ -16,9 +16,8 @@ exports.create = function (value, date, revision, timeblock, entity_id, constrai
 exports.get = function(date, revision, entity_id, constraint_type_id, done){
     var dateString = dateHelper.getDateString(date);
     var values = [dateString, revision, entity_id, constraint_type_id];
-    db.get().query('SELECT timeblock, value FROM seller_constraints WHERE date = ?, revision = ?, entity_id = ?, constraint_type_id = ?)', values, function (err, result) {
+    db.get().query('SELECT timeblock, value FROM seller_constraints WHERE date = ? AND revision = ? AND entity_id = ? AND constraint_type_id = ?', values, function (err, result) {
         if (err) return done(err);
-        console.log("Seller_Constraint Model searched for seller_constraint row");
         done(null, result);
     });
 };
