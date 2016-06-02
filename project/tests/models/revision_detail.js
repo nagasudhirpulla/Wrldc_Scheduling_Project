@@ -3,9 +3,10 @@ var expect = chai.expect; // we are using the "expect" style of Chai
 var Revision_detail = require('../../models/revision_detail');
 var db = require('../../db');
 
-describe('Revision_detail', function () {
+describe('Revision_detail Model', function () {
     it('should give the maximum revision number for today', function () {
         Revision_detail.getMaxRevision(new Date(), function (err, maxRev) {
+            console.log('Revision_detail model fetched the maximum revision as ' + maxRev);
             expect(err).to.equal(null);
         });
     });

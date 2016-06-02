@@ -3,7 +3,7 @@ var expect = chai.expect; // we are using the "expect" style of Chai
 var Revision_detail = require('../../models/revision_detail');
 var Desired_schedule = require('../../models/desired_schedule');
 
-describe('Desired_schedule', function () {
+describe('Desired_schedule Model', function () {
     var newRevision;
     var testDate;
     it('should create a desired schedule for today and get the created data back from server', function () {

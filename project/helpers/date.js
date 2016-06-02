@@ -38,3 +38,31 @@ exports.getDateTimeString = function (today) {
     today = yyyy + '-' + mm + '-' + dd + " " + hrs + ":" + mins + ":" + secs;
     return today;
 };
+
+exports.getNextDateString = function (today, nDays) {
+    var tomorrow = new Date(today.getTime() + nDays*86400000 );
+    var dd = tomorrow.getDate();
+    var mm = tomorrow.getMonth() + 1; //January is 0!
+    var yyyy = tomorrow.getFullYear();
+    var hrs = tomorrow.getHours();
+    var mins = tomorrow.getMinutes();
+    var secs = tomorrow.getSeconds();
+
+    if (dd < 10) {
+        dd = '0' + dd;
+    }
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    if (hrs < 10) {
+        dd = '0' + dd;
+    }
+    if (mins < 10) {
+        mm = '0' + mm;
+    }
+    if (secs < 10) {
+        dd = '0' + dd;
+    }
+    tomorrow = yyyy + '-' + mm + '-' + dd + " " + hrs + ":" + mins + ":" + secs;
+    return tomorrow;
+};

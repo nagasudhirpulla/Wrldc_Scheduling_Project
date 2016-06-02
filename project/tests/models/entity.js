@@ -2,7 +2,7 @@ var chai = require('chai');
 var expect = chai.expect; // we are using the "expect" style of Chai
 var Entity = require('../../models/entity');
 
-describe('Entity', function () {
+describe('Entity Model', function () {
     it('should have CGPL in the entity list and have properties name, id and region_id', function () {
         var entities = Entity.getByName("CGPL", function (err, rows) {
             expect(err).to.equal(null);

@@ -3,7 +3,7 @@ var expect = chai.expect; // we are using the "expect" style of Chai
 var Revision_detail = require('../../models/revision_detail');
 var Seller_constraint = require('../../models/seller_constraint');
 
-describe('Seller_constraint', function () {
+describe('Seller_constraint Model', function () {
     var newRevision;
     var testDate;
     var entity_id = 1;
