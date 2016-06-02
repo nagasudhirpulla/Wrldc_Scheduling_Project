@@ -5,9 +5,9 @@ exports.create = function (value, timeblock, seller_id, buyer_id, trader_id, tra
     var dateString = dateHelper.getDateString(date);
     var values = [value, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, dateString, revision];
 
-    db.get().query('INSERT INTO desired_schedules (value, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, date, revision) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', values, function (err, result) {
+    db.get().query('INSERT INTO feasible_schedules (value, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, date, revision) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', values, function (err, result) {
         if (err) return done(err);
-        console.log("Desired_schedules Model created a desired_schedule");
+        console.log("Feasible_schedules Model created a feasible_schedule");
         done(null, result.insertId);
     });
 };
@@ -27,7 +27,7 @@ exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, dat
             requiredFieldsStrings.push(SQLStrings[i]);
         }
     }
-    db.get().query('SELECT ' + requiredFieldsStrings.join(', ') + ' FROM desired_schedules WHERE ' + valuesSQLStrings.join(' AND '), nonNullValues, function (err, rows) {
+    db.get().query('SELECT ' + requiredFieldsStrings.join(', ') + ' FROM feasible_schedules WHERE ' + valuesSQLStrings.join(' AND '), nonNullValues, function (err, rows) {
         if (err) return done(err);
         done(null, rows);
     });

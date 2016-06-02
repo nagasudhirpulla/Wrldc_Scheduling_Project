@@ -17,9 +17,17 @@ describe('Desired_schedule Model', function () {
                 console.log("Desired_schedule test created a new Desired schedule with id " + resultId + " claiming a revision number " + revision);
                 Desired_schedule.get(1, 1, 1, 1, testDate, newRevision, function (err, rows) {
                     expect(err).to.equal(null);
-                    console.log("Desired_schedule Model returned data " + JSON.stringify(rows));
+                    console.log("Desired_schedule Model get method returned data " + JSON.stringify(rows));
                 });
             });
+        });
+    });
+
+    it('should get all the data for a seller on today', function () {
+        testDate = new Date();
+        Desired_schedule.get(1, 'NULL', 1, 1, testDate, 'NULL', function (err, rows) {
+            expect(err).to.equal(null);
+            console.log("Desired_schedule Model get all seller data on a date method returned data " + JSON.stringify(rows));
         });
     });
 });
