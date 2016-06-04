@@ -1,5 +1,7 @@
 var db = require('../db.js');
 var dateHelper = require('../helpers/date.js');
+var SQLHelper = require('../helpers/sqlHelper.js');
+var ArrayHelper = require('../helpers/arrayHelper.js');
 
 exports.create = function (value, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, from_date, to_date, isPercentage, transaction_code, done) {
     var fromDateString = dateHelper.getDateString(from_date);
@@ -8,8 +10,31 @@ exports.create = function (value, timeblock, seller_id, buyer_id, trader_id, tra
 
     db.get().query('INSERT INTO entitlements (value, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, from_date, to_date, isPercentage, transaction_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', values, function (err, result) {
         if (err) return done(err);
-        console.log("Desired_Schedules Model created desired_schedule");
+        console.log("Entitlement Model created an entitlement");
         done(null, result.insertId);
+    });
+};
+
+exports.createMultiple = function (value, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, from_date, to_date, isPercentage, transaction_code, done) {
+    var values = ArrayHelper.convertNonArrayArgumentsToArrayArguments(value, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, from_date, to_date, isPercentage, transaction_code);
+    var dateStringArgumentPosArray = [6, 7];
+    for (var k = 0; k < dateStringArgumentPosArray.length; k++) {
+        var dateStringArgumentPos = dateStringArgumentPosArray[k];
+        var dateString = [];
+        var dateArg = values[dateStringArgumentPos];
+        for (var i = 0; i < dateArg.length; i++) {
+            dateString[i] = dateHelper.getDateString(dateArg[i]);
+        }
+        values[dateStringArgumentPos] = dateString;
+    }
+    //all the values in arguments are arrays
+    var tableName = 'entitlements';
+    var argNames = ['value', 'timeblock', 'seller_id', 'buyer_id', 'trader_id', 'transaction_type_id', 'from_date', 'to_date', 'isPercentage', 'transaction_code'];
+    var createdSQL = SQLHelper.createSQLInsertString(tableName, argNames, values);
+    db.get().query(createdSQL['SQLQueryString'], createdSQL['SQLQueryValues'], function (err, result) {
+        if (err) return done(err);
+        console.log("Entitlement Model createMultiple created multiple entitlements");
+        done(null, result);
     });
 };
 

@@ -23,9 +23,9 @@ describe('Desired_schedule Model', function () {
             });
         });
     });
-    it('should create multiple desired schedule for today and get the created data back from server', function () {
+    it('should create multiple desired schedules for today and get the created data back from server', function () {
         testDate = new Date();
-        Revision_detail.create(testDate, "Desired_schedule TEST COMMENT", function (err, revision) {
+        Revision_detail.create(testDate, "Multiple Desired_schedule TEST COMMENT", function (err, revision) {
             expect(err).to.equal(null);
             newRevision = revision;
             console.log('Desired_schedule model claimed a new revision ' + revision);

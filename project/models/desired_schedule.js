@@ -36,7 +36,7 @@ exports.createMultiple = function (value, timeblock, seller_id, buyer_id, trader
 
 exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, date, revision, done) {
     var dateString = dateHelper.getDateString(date);
-    var SQLStrings = ['seller_id', 'buyer_id', 'trader_id', 'transaction_type_id', 'date', 'revision'];
+    var SQLColumnStrings = ['seller_id', 'buyer_id', 'trader_id', 'transaction_type_id', 'date', 'revision'];
     var values = [seller_id, buyer_id, trader_id, transaction_type_id, dateString, revision];
     var nonNullValues = [];
     var valuesSQLStrings = [];
@@ -44,9 +44,9 @@ exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, dat
     for (var i = 0; i < values.length; i++) {
         if (!(values[i] == 'NULL')) {
             nonNullValues.push(values[i]);
-            valuesSQLStrings.push(SQLStrings[i] + ' = ?');
+            valuesSQLStrings.push(SQLColumnStrings[i] + ' = ?');
         } else {
-            requiredFieldsStrings.push(SQLStrings[i]);
+            requiredFieldsStrings.push(SQLColumnStrings[i]);
         }
     }
     db.get().query('SELECT ' + requiredFieldsStrings.join(', ') + ' FROM desired_schedules WHERE ' + valuesSQLStrings.join(' AND '), nonNullValues, function (err, rows) {
