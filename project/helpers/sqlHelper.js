@@ -20,10 +20,25 @@ exports.createSQLInsertString = function (tableName, argNames, values) {
     }
     questionMarkString = questionMarkArray.join(','); //here we get "(?,?,?,?,?,?,?,?), (?,?,?,?,?,?,?,?), (?,?,?,?,?,?,?,?)"
     SQLQueryString += questionMarkString;
-    console.log("SQLQUERYVALUES ARE " + SQLQueryValues.join(', '));
+    /*console.log("SQLQUERYVALUES ARE " + SQLQueryValues.join(', '));
     console.log("SQLQUERYSTRING IS " + SQLQueryString);
     console.log("NUMARGS IS " + numArgs);
     console.log("NUMOFROWSTOINSERT IS " + numRowsToInsert);
-    console.log("VALUES ARRAY IS " + values);
+    console.log("VALUES ARRAY IS " + values);*/
     return {'SQLQueryValues': SQLQueryValues, 'SQLQueryString': SQLQueryString};
+};
+
+exports.createSQLGetString = function (tableName, getArgNames, whereArgNames, whereArgOperators) {
+    var SQLQueryString = 'SELECT ';
+    SQLQueryString += getArgNames.join(',') + ' ';
+    SQLQueryString += 'FROM ' + tableName;
+    var whereArgExpressions = new Array(whereArgNames.length);
+    if (whereArgNames.length > 0) {
+        for (var i = 0; i < whereArgNames.length; i++) {
+            whereArgExpressions[i] = whereArgNames[i] + whereArgOperators[i] + '?';
+        }
+        SQLQueryString += ' WHERE ' + whereArgExpressions.join(' AND ');
+    }
+    //console.log("SQLQUERYSTRING IS " + SQLQueryString);
+    return SQLQueryString;
 };

@@ -1,0 +1,40 @@
+Loading the Requisition Page
+****************************
+Load the entity names and their ids first
+
+Then Load the transaction types and their ids
+
+From the entitlements table get the entitlements that have the selected entity as a buyer for the current date
+
+Load the headers of the requisition grid with the sellers in the entitlements rows obtained
+
+Load the latest revision for the day into the current revision field
+
+Load all the feasible schedule values into the grid cells for the current revision
+
+Load and save locally the desired requisitions also so that the user can switch between his desired and feasible requisition view modes
+
+
+After Loading the Requisition Page
+**********************************
+Constituent can't change the cells in the feasible requisition view mode,he can change only what he desires in the desired requisition view mode
+
+Do the changes in requisition and send a requisition request to the server and wait
+
+
+Sending the changes to the server
+*********************************
+The client sends the requisition summary to the server in the format of the desired schedules table rows
+
+The server will claim a new revision to save the desired schedule data after comparing the desired schedule in a seller with a most recent revision. If the schedule in a seller is the same as the previous revision then the desired schedule is not saved.
+
+Then the server will send a success status message to the client that the desired requisition is saved
+
+The server will add the feasible schedule calculation request of the particular sellers in the latest revision to the queue and calculate the feasible schedule for that revision
+
+
+After receiving a success message for the
+*****************************************
+requisition change Request
+**************************
+Show a success message to the user and load the latest revision once again in the grid by repeating the steps in the beginning

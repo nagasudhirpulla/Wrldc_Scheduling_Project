@@ -4,7 +4,7 @@ var Entity = require('../../models/entity');
 
 describe('Entity Model', function () {
     it('should have CGPL in the entity list and have properties name, id and region_id', function () {
-        var entities = Entity.getByName("CGPL", function (err, rows) {
+        Entity.getByName("CGPL", function (err, rows) {
             expect(err).to.equal(null);
             expect(rows.length).to.equal(1);
             expect(rows[0]).to.have.property('name');
@@ -17,7 +17,7 @@ describe('Entity Model', function () {
     });
 
     it('should get the entity list and have properties name, id and region_id', function () {
-        var entities = Entity.getAll(function (err, rows) {
+        Entity.getAll(function (err, rows) {
             expect(err).to.equal(null);
             expect(rows.length).to.be.above(0);
             expect(rows[0]).to.have.property('name');

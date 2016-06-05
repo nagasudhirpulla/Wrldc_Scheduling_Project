@@ -1,4 +1,5 @@
 var db = require('../db.js');
+var SQLHelper = require('../helpers/sqlHelper');
 
 exports.create = function (entityName, regionID, done) {
     var values = [entityName, regionID];
@@ -11,7 +12,7 @@ exports.create = function (entityName, regionID, done) {
 };
 
 exports.getAll = function (done) {
-    db.get().query('SELECT * FROM entities', function (err, rows) {
+    db.get().query(SQLHelper.createSQLGetString('entities', ['name', 'id', 'region_id'], [], []), function (err, rows) {
         if (err) return done(err);
         done(null, rows);
     })
