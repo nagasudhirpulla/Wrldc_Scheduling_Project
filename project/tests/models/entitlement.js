@@ -8,7 +8,7 @@ describe('Entitlement Model', function () {
         Entitlement.create(1992, 92, 1, 1, 1, 1, new Date(), new Date(), 0, 'ENTITLEMENT_MODEL_TEST_' + Date.now(), function (err, resultId) {
             expect(err).to.equal(null);
             console.log("Entitlement Model test created a new entitlement with id " + resultId);
-            Entitlement.get(1, 1, 1, 1, new Date(), function (err, rows) {
+            Entitlement.get(1, 1, 1, 1, 'NULL', new Date(), function (err, rows) {
                 expect(err).to.equal(null);
                 //console.log("Entitlement Model get method returned data " + JSON.stringify(rows));
             });
@@ -19,7 +19,7 @@ describe('Entitlement Model', function () {
         Entitlement.createMultiple(CAFSE(1992, 3), [1, 15, 35], CAFSE(1, 3), CAFSE(1, 3), CAFSE(1, 3), CAFSE(1, 3), CAFSE(new Date(), 3), CAFSE(new Date(), 3), CAFSE(0, 3), CAFSE('ENTITLEMENT_MODEL_TEST_MULTIPLE' + Date.now(), 3), function (err, result) {
             expect(err).to.equal(null);
             console.log("Entitlement Model multiple creation test created " + result.affectedRows + " entitlements");
-            Entitlement.get(1, 1, 1, 1, new Date(), function (err, rows) {
+            Entitlement.get(1, 1, 1, 1, 'NULL',  new Date(), function (err, rows) {
                 expect(err).to.equal(null);
                 //console.log("Entitlement Model get method returned data " + JSON.stringify(rows));
             });

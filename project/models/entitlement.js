@@ -38,11 +38,38 @@ exports.createMultiple = function (value, timeblock, seller_id, buyer_id, trader
     });
 };
 
-exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, on_date, done) {
+/*exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, on_date, done) {
+ var dateString = dateHelper.getDateString(on_date);
+ var values = [seller_id, buyer_id, trader_id, transaction_type_id, dateString];
+ db.get().query('SELECT timeblock, value, isPercentage, from_date, to_date, transaction_code FROM entitlements WHERE seller_id = ? AND buyer_id = ? AND trader_id = ? AND transaction_type_id = ? AND from_date = (SELECT MAX(from_date) FROM entitlements WHERE from_date <= ?)', values, function (err, rows) {
+ if (err) return done(err);
+ done(null, rows);
+ });
+ };*/
+
+exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, transaction_code, on_date, done) {
     var dateString = dateHelper.getDateString(on_date);
-    var values = [seller_id, buyer_id, trader_id, transaction_type_id, dateString];
-    db.get().query('SELECT timeblock, value, isPercentage, from_date, to_date, transaction_code FROM entitlements WHERE seller_id = ? AND buyer_id = ? AND trader_id = ? AND transaction_type_id = ? AND from_date = (SELECT MAX(from_date) FROM entitlements WHERE from_date <= ?)', values, function (err, rows) {
+    //leaving on_date field on purpose to create its sql seperately and append it at the end
+    var SQLColumnStrings = ['seller_id', 'buyer_id', 'trader_id', 'transaction_type_id', 'transaction_code'];
+    var requiredFieldsStrings = ['value', 'isPercentage', 'timeblock', 'from_date', 'to_date'];
+    var nonNullValues = [];
+    var valuesSQLStrings = [];
+    var values = [seller_id, buyer_id, trader_id, transaction_type_id, transaction_code];
+    for (var i = 0; i < SQLColumnStrings.length; i++) {
+        if (!(values[i] == 'NULL')) {
+            nonNullValues.push(values[i]);
+            valuesSQLStrings.push(SQLColumnStrings[i]);
+        } else {
+            requiredFieldsStrings.push(SQLColumnStrings[i]);
+        }
+    }
+    var queryString = SQLHelper.createSQLGetString('entitlements', requiredFieldsStrings, valuesSQLStrings, ArrayHelper.createArrayFromSingleElement('=', valuesSQLStrings.length));
+    queryString += ' AND from_date = (SELECT MAX(from_date) FROM entitlements WHERE from_date <= ?)';
+    //console.log('SQL ENTITLEMENTS STRING IS ' + queryString);
+    nonNullValues.push(dateString);
+    db.get().query(queryString, nonNullValues, function (err, rows) {
         if (err) return done(err);
+        //console.log('SQL ENTITLEMENTS ROWS ARE ' + JSON.stringify(rows));
         done(null, rows);
     });
 };
