@@ -1,0 +1,51 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'package.json' ]
+2 info using npm@2.15.1
+3 info using node@v4.4.4
+4 verbose install initial load of C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\package.json
+5 warn package.json scheduling_server@1.0.0 No repository field.
+6 verbose installManyTop reading scoped package data from C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\node_modules\async\package.json
+7 verbose installManyTop reading scoped package data from C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\node_modules\chai\package.json
+8 verbose installManyTop reading scoped package data from C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\node_modules\express\package.json
+9 verbose installManyTop reading scoped package data from C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\node_modules\mocha\package.json
+10 verbose installManyTop reading scoped package data from C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\node_modules\morgan\package.json
+11 verbose installManyTop reading scoped package data from C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\node_modules\mysql\package.json
+12 verbose readDependencies loading dependencies from C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\package.json
+13 silly cache add args [ 'package.json', null ]
+14 verbose cache add spec package.json
+15 silly cache add parsed spec Result {
+15 silly cache add   raw: 'package.json',
+15 silly cache add   scope: null,
+15 silly cache add   name: null,
+15 silly cache add   rawSpec: 'package.json',
+15 silly cache add   spec: 'C:\\Users\\Nagasudhir\\Documents\\WRLDC Scheduling Project\\scheduling_server\\package.json',
+15 silly cache add   type: 'local' }
+16 silly addLocalTarball shasum (computed) cbecff4793d238a15a6e467eefb1f7b010679eb0
+17 verbose addTmpTarball C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\package.json not in flight; adding
+18 verbose correctMkdir C:\Users\Nagasudhir\AppData\Roaming\npm-cache correctMkdir not in flight; initializing
+19 verbose addTmpTarball validating metadata from C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\package.json
+20 verbose tar unpack C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\package.json
+21 verbose tar unpacking to C:\Users\NAGASU~1\AppData\Local\Temp\npm-19912-23d1662d\unpack-9eca266ea669
+22 silly gentlyRm C:\Users\NAGASU~1\AppData\Local\Temp\npm-19912-23d1662d\unpack-9eca266ea669 is being purged
+23 verbose gentlyRm don't care about contents; nuking C:\Users\NAGASU~1\AppData\Local\Temp\npm-19912-23d1662d\unpack-9eca266ea669
+24 silly gunzTarPerm modes [ '777', '666' ]
+25 error not a package C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\package.json
+26 error addLocal Could not install C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server\package.json
+27 verbose stack Error: ENOENT: no such file or directory, open 'C:\Users\NAGASU~1\AppData\Local\Temp\npm-19912-23d1662d\unpack-9eca266ea669\package.json'
+27 verbose stack     at Error (native)
+28 verbose cwd C:\Users\Nagasudhir\Documents\WRLDC Scheduling Project\scheduling_server
+29 error Windows_NT 10.0.10586
+30 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "package.json"
+31 error node v4.4.4
+32 error npm  v2.15.1
+33 error path C:\Users\NAGASU~1\AppData\Local\Temp\npm-19912-23d1662d\unpack-9eca266ea669\package.json
+34 error code ENOENT
+35 error errno -4058
+36 error syscall open
+37 error enoent ENOENT: no such file or directory, open 'C:\Users\NAGASU~1\AppData\Local\Temp\npm-19912-23d1662d\unpack-9eca266ea669\package.json'
+37 error enoent This is most likely not a problem with npm itself
+37 error enoent and is related to npm not being able to find a file.
+38 verbose exit [ -4058, true ]

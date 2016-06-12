@@ -54,3 +54,31 @@ exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, dat
         done(null, rows);
     });
 };
+
+exports.getForRevision = function (seller_id, buyer_id, trader_id, transaction_type_id, date, revision, done) {
+    var dateString = dateHelper.getDateString(date);
+    var SQLColumnStrings = ['seller_id', 'buyer_id', 'trader_id', 'transaction_type_id', 'date', 'revision'];
+    var values = [seller_id, buyer_id, trader_id, transaction_type_id, dateString, revision];
+    var nonNullValues = [];
+    var valuesSQLStrings = [];
+    var requiredFieldsStrings = ['value', 'timeblock'];
+    for (var i = 0; i < values.length; i++) {
+        if (!(values[i] == 'NULL')) {
+            nonNullValues.push(values[i]);
+            valuesSQLStrings.push(SQLColumnStrings[i] + ' = ?');
+        } else {
+            requiredFieldsStrings.push(SQLColumnStrings[i]);
+        }
+    }
+    db.get().query('SELECT ' + requiredFieldsStrings.join(', ') + ' FROM feasible_schedules WHERE ' + valuesSQLStrings.join(' AND '), nonNullValues, function (err, rows) {
+        if (err) return done(err);
+        done(null, rows);
+    });
+    /*SELECT a.* FROM desired_schedules a
+    INNER JOIN (
+        SELECT id, MAX(revision) revision
+    FROM desired_schedules
+    GROUP BY id
+    ) b ON a.id = b.id AND a.revision = b.revision*/
+    //SELECT a.* FROM desired_schedules a INNER JOIN ( SELECT id, MAX(revision) revision FROM desired_schedules GROUP BY id ) b ON a.id = b.id AND a.revision = b.revision
+};
