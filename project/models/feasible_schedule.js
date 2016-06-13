@@ -57,28 +57,12 @@ exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, dat
 
 exports.getForRevision = function (seller_id, buyer_id, trader_id, transaction_type_id, date, revision, done) {
     var dateString = dateHelper.getDateString(date);
-    var SQLColumnStrings = ['seller_id', 'buyer_id', 'trader_id', 'transaction_type_id', 'date', 'revision'];
-    var values = [seller_id, buyer_id, trader_id, transaction_type_id, dateString, revision];
-    var nonNullValues = [];
-    var valuesSQLStrings = [];
-    var requiredFieldsStrings = ['value', 'timeblock'];
-    for (var i = 0; i < values.length; i++) {
-        if (!(values[i] == 'NULL')) {
-            nonNullValues.push(values[i]);
-            valuesSQLStrings.push(SQLColumnStrings[i] + ' = ?');
-        } else {
-            requiredFieldsStrings.push(SQLColumnStrings[i]);
-        }
-    }
-    db.get().query('SELECT ' + requiredFieldsStrings.join(', ') + ' FROM feasible_schedules WHERE ' + valuesSQLStrings.join(' AND '), nonNullValues, function (err, rows) {
+    var tableName = 'feasible_schedules';
+    var query = SQLHelper.createSQLGetForRevisionString(tableName, dateString, seller_id, buyer_id, trader_id, transaction_type_id, dateString, revision);
+    db.get().query(query.queryString, query.nonNullValues, function (err, rows) {
         if (err) return done(err);
         done(null, rows);
     });
-    /*SELECT a.* FROM desired_schedules a
-    INNER JOIN (
-        SELECT id, MAX(revision) revision
-    FROM desired_schedules
-    GROUP BY id
-    ) b ON a.id = b.id AND a.revision = b.revision*/
-    //SELECT a.* FROM desired_schedules a INNER JOIN ( SELECT id, MAX(revision) revision FROM desired_schedules GROUP BY id ) b ON a.id = b.id AND a.revision = b.revision
+    console.log('queryString for feasible schedule is \n' + query.queryString + '\n and non null values are \n' + query.nonNullValues);
+    //SELECT a.id, a.value, a.timeblock, a.revision, a.seller_id, a.trader_id, a.transaction_type_id FROM feasible_schedules a INNER JOIN ( SELECT date, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, MAX(revision) revision FROM feasible_schedules WHERE buyer_id = ? AND date = ? AND revision <= ? GROUP BY date, timeblock, seller_id, buyer_id, trader_id, transaction_type_id) b ON a.date = b.date AND a.timeblock = b.timeblock AND a.seller_id = b.seller_id AND a.buyer_id = b.buyer_id AND a.trader_id = b.trader_id AND a.transaction_type_id = b.transaction_type_id AND a.revision = b.revision ORDER BY a.date DESC, a.revision DESC, a.timeblock ASC
 };

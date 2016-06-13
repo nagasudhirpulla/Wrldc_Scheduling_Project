@@ -11,7 +11,9 @@ app.set('json spaces', 1);
 app.use('/api/entities', require('./project/controllers/entity'));
 app.use('/api/transaction_types', require('./project/controllers/transaction_type'));
 app.use('/api/entitlements', require('./project/controllers/entitlement'));
-app.use('/api/revision', require('./project/controllers/revision_detail'));
+app.use('/api/revisions', require('./project/controllers/revision_detail'));
+app.use('/api/feasible_schedules', require('./project/controllers/feasible_schedule'));
+app.use('/api/desired_schedules', require('./project/controllers/desired_schedule'));
 
 // Connect to MySQL on start
 db.connect(db.MODE_PRODUCTION, function (err) {

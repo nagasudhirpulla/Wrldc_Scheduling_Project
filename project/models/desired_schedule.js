@@ -54,3 +54,15 @@ exports.get = function (seller_id, buyer_id, trader_id, transaction_type_id, dat
         done(null, rows);
     });
 };
+
+exports.getForRevision = function (seller_id, buyer_id, trader_id, transaction_type_id, date, revision, done) {
+    var dateString = dateHelper.getDateString(date);
+    var tableName = 'desired_schedules';
+    var query = SQLHelper.createSQLGetForRevisionString(tableName, dateString, seller_id, buyer_id, trader_id, transaction_type_id, dateString, revision);
+    db.get().query(query.queryString, query.nonNullValues, function (err, rows) {
+        if (err) return done(err);
+        done(null, rows);
+    });
+    console.log('queryString for desired schedule is \n' + query.queryString + '\n and non null values are \n' + query.nonNullValues);
+    //SELECT a.id, a.value, a.timeblock, a.revision, a.seller_id, a.trader_id, a.transaction_type_id FROM feasible_schedules a INNER JOIN ( SELECT date, timeblock, seller_id, buyer_id, trader_id, transaction_type_id, MAX(revision) revision FROM feasible_schedules WHERE buyer_id = ? AND date = ? AND revision <= ? GROUP BY date, timeblock, seller_id, buyer_id, trader_id, transaction_type_id) b ON a.date = b.date AND a.timeblock = b.timeblock AND a.seller_id = b.seller_id AND a.buyer_id = b.buyer_id AND a.trader_id = b.trader_id AND a.transaction_type_id = b.transaction_type_id AND a.revision = b.revision ORDER BY a.date DESC, a.revision DESC, a.timeblock ASC
+};
