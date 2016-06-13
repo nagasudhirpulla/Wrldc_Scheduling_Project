@@ -48,4 +48,5 @@ describe('Desired_schedule Model', function () {
             console.log("Desired_schedule Model get all seller data on a date method returned data " + JSON.stringify(rows));
         });
     });
+    //todo get for revision
 });

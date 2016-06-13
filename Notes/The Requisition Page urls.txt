@@ -1,0 +1,21 @@
+Loading the Requisition Page
+****************************
+Load the entity names and their ids first
+http://localhost:3000/api/entities/names
+
+Then Load the transaction types and their ids
+http://localhost:3000/api/transaction_types/types
+
+From the entitlements table get the entitlements that have the selected entity as a buyer for the current date
+http://localhost:3000/api/entitlements/get?date=2016-06-13&buyer_id=1
+
+Load the headers of the requisition grid with the sellers in the entitlements rows obtained
+
+Load the latest revision for the day into the current revision field
+http://localhost:3000/api/revisions/getmax?date=2016-06-03
+
+Load all the feasible schedule values into the grid cells for the current revision
+http://localhost:3000/api/feasible_schedules/getforrevision?date=2016-06-02&buyer_id=1
+
+Load and save locally the desired requisitions also so that the user can switch between his desired and feasible requisition view modes
+http://localhost:3000/api/desired_schedules/getforrevision?date=2016-06-02&buyer_id=1

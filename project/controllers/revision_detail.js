@@ -9,7 +9,7 @@ router.get('/getmax', function (req, res) {
     }
     Revision_detail.getMaxRevision(new Date(req.query.date), function (err, maxRev) {
         if (err) {
-            res.send({'Error': err});
+            res.json({'Error': err});
         }
         res.json({'maxRevision': maxRev});
     });
